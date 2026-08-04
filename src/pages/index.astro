@@ -2,13 +2,26 @@
 import Layout from '../layouts/Layout.astro';
 import StatusClock from '../components/StatusClock';
 import Reveal from '../components/Reveal';
+import ProjectFilter from '../components/ProjectFilter';
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import danilPhoto from '../assets/images/danil.jpg';
 import { getDictionary, type Locale } from '../i18n';
 import { skillGroups } from '../data/skills';
+import { directionLabels, platformLabels } from '../data/directions';
 
 const locale = (Astro.currentLocale ?? 'ru') as Locale;
 const dict = getDictionary(locale);
+
+const allProjects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const directions = [...new Set(allProjects.map((p) => p.data.direction))];
+const presentPlatforms = [...new Set(allProjects.flatMap((p) => p.data.platforms))].map((value) => ({
+  value,
+  label: platformLabels[value]
+}));
 ---
 
 <Layout title="Данил Ефремов — UX/UI дизайнер">
@@ -48,6 +61,58 @@ const dict = getDictionary(locale);
       </div>
     </div>
   </main>
+
+  <section id="projects" class="container-site py-20 md:py-28">
+    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <h2 class="font-display text-3xl font-semibold tracking-tight md:text-4xl">{dict.nav.projects}</h2>
+      {presentPlatforms.length > 1 && (
+        <ProjectFilter platforms={presentPlatforms} allLabel={dict.projects.all} client:load />
+      )}
+    </div>
+
+    {directions.map((direction) => (
+      <div class="mt-14 first:mt-10">
+        <h3 class="text-sm font-medium uppercase tracking-[0.14em] text-fg-muted">{directionLabels[direction]}</h3>
+        <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {allProjects
+            .filter((p) => p.data.direction === direction)
+            .map((project) => (
+              <a
+                href={`/projects/${project.id.replace(/\/index$/, '')}/`}
+                data-cursor="link"
+                data-project-card
+                data-platforms={project.data.platforms.join(',')}
+                class="group block"
+              >
+                <div class="glass-panel aspect-[4/3] overflow-hidden rounded-[20px]">
+                  <Image
+                    src={project.data.cover}
+                    alt={project.data.title}
+                    width={640}
+                    height={480}
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div class="mt-4 flex items-start justify-between gap-3">
+                  <div>
+                    <h4 class="font-display text-lg font-semibold">{project.data.title}</h4>
+                    <p class="mt-1 text-sm text-fg-muted">{project.data.company} · {project.data.period}</p>
+                  </div>
+                </div>
+                <p class="mt-2 text-sm text-fg-muted">{project.data.summary}</p>
+                <ul class="mt-3 flex flex-wrap gap-1.5">
+                  {project.data.platforms.map((platform) => (
+                    <li class="rounded-full border border-border px-2.5 py-0.5 text-[11px] font-medium text-fg-muted">
+                      {platformLabels[platform]}
+                    </li>
+                  ))}
+                </ul>
+              </a>
+            ))}
+        </div>
+      </div>
+    ))}
+  </section>
 
   <section id="about" class="container-site py-20 md:py-28">
     <Reveal client:visible>
