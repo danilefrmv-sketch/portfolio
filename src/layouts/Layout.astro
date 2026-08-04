@@ -25,9 +25,9 @@ const dict = getDictionary(locale);
     <ClientRouter />
   </head>
   <body>
-    <Cursor client:load />
-    <Header dict={dict} locale={locale} client:load />
-    <ContactButton dict={dict} client:load />
+    <Cursor client:load transition:persist transition:name="cursor" />
+    <Header dict={dict} locale={locale} client:load transition:persist transition:name="header" />
+    <ContactButton dict={dict} client:load transition:persist transition:name="contact-button" />
     <div class="pt-16 md:pt-20">
       <slot />
     </div>

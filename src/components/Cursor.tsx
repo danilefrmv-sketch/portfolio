@@ -33,8 +33,23 @@ export default function Cursor() {
     const isFinePointer = window.matchMedia('(pointer: fine)').matches;
     if (reduceMotion || !isFinePointer) return;
 
+    // Astro's view-transition swap restores <html> to the new page's server-rendered
+    // classes, wiping this class even though the Cursor island itself persists.
+    // Re-add it after every swap, not just on first mount.
+    const addClass = () => document.documentElement.classList.add('has-custom-cursor');
+    addClass();
+    document.addEventListener('astro:after-swap', addClass);
+
+    // The cursor island persists across Astro view transitions (transition:persist).
+    // Guard so re-running this effect (e.g. during a page swap) never attaches
+    // a second set of pointer listeners or tears down the first one mid-navigation.
+    const win = window as typeof window & { __cursorInit?: boolean };
+    if (win.__cursorInit) {
+      return () => document.removeEventListener('astro:after-swap', addClass);
+    }
+    win.__cursorInit = true;
+
     enabledRef.current = true;
-    document.documentElement.classList.add('has-custom-cursor');
 
     const handleMove = (event: PointerEvent) => {
       x.set(event.clientX);
@@ -55,13 +70,6 @@ export default function Cursor() {
     window.addEventListener('pointermove', handleMove);
     document.addEventListener('pointerover', handleOver);
     document.addEventListener('pointerout', handleOut);
-
-    return () => {
-      document.documentElement.classList.remove('has-custom-cursor');
-      window.removeEventListener('pointermove', handleMove);
-      document.removeEventListener('pointerover', handleOver);
-      document.removeEventListener('pointerout', handleOut);
-    };
   }, [reduceMotion, x, y]);
 
   if (reduceMotion) return null;
