@@ -54,10 +54,8 @@ const carouselImages = await Promise.all(
       <Carousel images={carouselImages} alt={project.data.title} client:visible />
     </div>
 
-    <div class="mt-12 grid grid-cols-1 gap-12 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-      <div class="prose-project max-w-[70ch]">
-        <Content />
-      </div>
+    <div class="prose-project mt-12 max-w-4xl columns-1 gap-12 md:columns-2">
+      <Content />
     </div>
   </article>
 </Layout>

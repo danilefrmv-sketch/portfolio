@@ -13,7 +13,7 @@ interface CarouselProps {
   alt: string;
 }
 
-const SPRING = { type: 'spring' as const, stiffness: 300, damping: 32 };
+const SPRING = { type: 'spring' as const, stiffness: 260, damping: 22, mass: 0.9 };
 
 export default function Carousel({ images, alt }: CarouselProps) {
   const [[index, direction], setIndexState] = useState<[number, number]>([0, 0]);
@@ -28,8 +28,8 @@ export default function Carousel({ images, alt }: CarouselProps) {
   const current = images[index];
 
   return (
-    <div className="glass-panel relative mx-auto max-w-4xl overflow-hidden rounded-[24px]">
-      <div className="relative aspect-[4/3] w-full">
+    <div className="relative max-w-4xl overflow-hidden rounded-[24px]">
+      <div className="relative aspect-[4/3] w-full bg-bg-elevated">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           <motion.img
             key={index}
@@ -38,11 +38,11 @@ export default function Carousel({ images, alt }: CarouselProps) {
             height={current.height}
             alt={`${alt} — изображение ${index + 1} из ${images.length}`}
             custom={direction}
-            initial={reduceMotion ? false : { x: direction >= 0 ? '100%' : '-100%', opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={reduceMotion ? undefined : { x: direction >= 0 ? '-100%' : '100%', opacity: 0 }}
+            initial={reduceMotion ? false : { x: direction >= 0 ? '70%' : '-70%', opacity: 0, scale: 0.92 }}
+            animate={{ x: 0, opacity: 1, scale: 1 }}
+            exit={reduceMotion ? undefined : { x: direction >= 0 ? '-70%' : '70%', opacity: 0, scale: 0.92 }}
             transition={reduceMotion ? { duration: 0 } : SPRING}
-            className="absolute inset-0 h-full w-full object-contain bg-bg-elevated"
+            className="absolute inset-0 h-full w-full object-contain"
           />
         </AnimatePresence>
 
@@ -66,26 +66,24 @@ export default function Carousel({ images, alt }: CarouselProps) {
             >
               <CaretRight size={18} weight="bold" />
             </button>
+
+            <div className="absolute inset-x-0 bottom-4 z-10 flex items-center justify-center gap-2">
+              {images.map((image, i) => (
+                <button
+                  key={image.src}
+                  type="button"
+                  data-cursor="link"
+                  aria-label={`Перейти к изображению ${i + 1}`}
+                  onClick={() => goTo(i, i > index ? 1 : -1)}
+                  className={`h-1.5 rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.4)] transition-all duration-300 ${
+                    i === index ? 'w-6 bg-accent' : 'w-1.5 bg-fg/60'
+                  }`}
+                />
+              ))}
+            </div>
           </>
         )}
       </div>
-
-      {images.length > 1 && (
-        <div className="flex items-center justify-center gap-2 py-4">
-          {images.map((image, i) => (
-            <button
-              key={image.src}
-              type="button"
-              data-cursor="link"
-              aria-label={`Перейти к изображению ${i + 1}`}
-              onClick={() => goTo(i, i > index ? 1 : -1)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === index ? 'w-6 bg-accent' : 'w-1.5 bg-fg-muted/40'
-              }`}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }
