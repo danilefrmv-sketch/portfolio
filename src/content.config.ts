@@ -7,7 +7,7 @@ const projects = defineCollection({
     z.object({
       title: z.string(),
       order: z.number().default(0),
-      direction: z.enum(['b2b-saas', 'production', 'entertainment-sport', 'events']),
+      direction: z.enum(['b2b-saas', 'production', 'entertainment-sport', 'events', 'consumer']),
       platforms: z.array(z.enum(['web', 'mobile', 'tablet', 'pos', 'kiosk'])),
       company: z.string(),
       period: z.string(),
