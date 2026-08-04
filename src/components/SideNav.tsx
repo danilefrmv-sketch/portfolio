@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { List, X } from '@phosphor-icons/react';
+import { List, X, TelegramLogo, DribbbleLogo } from '@phosphor-icons/react';
 import type { Dictionary } from '../i18n/ru';
 
 interface SideNavProps {
@@ -23,43 +23,62 @@ export default function SideNav({ dict, locale }: SideNavProps) {
 
   return (
     <>
-      {/* Desktop: persistent side rail */}
-      <motion.nav
+      {/* Desktop: persistent left sidebar */}
+      <motion.aside
         aria-label="Основная навигация"
         initial={reduceMotion ? false : { opacity: 0, x: -16 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="glass-panel fixed left-4 top-1/2 z-50 hidden -translate-y-1/2 flex-col items-center gap-5 rounded-full px-2 py-5 md:flex"
+        className="fixed inset-y-0 left-0 z-50 hidden w-[260px] flex-col justify-between border-r border-border bg-bg-elevated/80 px-8 py-10 backdrop-blur-xl md:flex"
       >
-        <ul className="flex flex-col items-center gap-5">
-          {sections.map((section) => (
-            <li key={section.key}>
-              <a
-                href={section.href}
-                data-cursor="link"
-                className="block whitespace-nowrap px-2 text-xs font-medium uppercase tracking-[0.14em] text-fg-muted transition-colors hover:text-fg"
-                style={{ writingMode: 'vertical-rl' }}
-              >
-                {dict.nav[section.key]}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="h-px w-6 bg-border" />
-        <a
-          href={otherHref}
-          data-cursor="link"
-          aria-label={dict.languageSwitch.label}
-          className="text-xs font-semibold uppercase tracking-wide text-fg-muted transition-colors hover:text-fg"
-        >
-          {otherLocale}
-        </a>
-      </motion.nav>
+        <div>
+          <a href="/" data-cursor="link" className="text-base font-semibold">
+            Данил Ефремов
+          </a>
+          <p className="mt-1 text-sm text-fg-muted">Product UX/UI дизайнер</p>
+        </div>
+
+        <nav>
+          <ul className="flex flex-col gap-4">
+            {sections.map((section) => (
+              <li key={section.key}>
+                <a
+                  href={section.href}
+                  data-cursor="link"
+                  className="text-sm font-medium text-fg-muted transition-colors hover:text-fg"
+                >
+                  {dict.nav[section.key]}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-3">
+            <a href="https://t.me/efremovdanil" target="_blank" rel="noreferrer" data-cursor="link" aria-label="Telegram" className="text-fg-muted transition-colors hover:text-fg">
+              <TelegramLogo size={18} />
+            </a>
+            <a href="https://dribbble.com/danilefremov" target="_blank" rel="noreferrer" data-cursor="link" aria-label="Dribbble" className="text-fg-muted transition-colors hover:text-fg">
+              <DribbbleLogo size={18} />
+            </a>
+          </div>
+          <a
+            href={otherHref}
+            data-cursor="link"
+            aria-label={dict.languageSwitch.label}
+            className="w-fit rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-fg-muted transition-colors hover:text-fg"
+          >
+            {locale.toUpperCase()} / {otherLocale.toUpperCase()}
+          </a>
+        </div>
+      </motion.aside>
 
       {/* Mobile: toggle button + full-screen overlay */}
       <button
         type="button"
         data-cursor="link"
+        data-menu-toggle
         aria-label={mobileOpen ? 'Закрыть меню' : 'Открыть меню'}
         onClick={() => setMobileOpen((v) => !v)}
         className="glass-panel fixed right-4 top-4 z-50 flex h-11 w-11 items-center justify-center rounded-full md:hidden"
