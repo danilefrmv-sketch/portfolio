@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ChatCircleDots, X, TelegramLogo, EnvelopeSimple, DribbbleLogo, Phone } from '@phosphor-icons/react';
 import type { Dictionary } from '../i18n/ru';
@@ -16,10 +16,35 @@ const CONTACTS = [
 
 export default function ContactButton({ dict }: ContactButtonProps) {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
   const reduceMotion = useReducedMotion();
 
+  useEffect(() => {
+    const hero = document.getElementById('hero');
+    if (!hero) {
+      setVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(!entry.isIntersecting);
+        if (entry.isIntersecting) setOpen(false);
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div id="contact" className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <motion.div
+      id="contact"
+      initial={false}
+      animate={visible ? { opacity: 1, y: 0, pointerEvents: 'auto' } : { opacity: 0, y: 24, pointerEvents: 'none' }}
+      transition={{ duration: reduceMotion ? 0 : 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
+    >
       <AnimatePresence>
         {open && (
           <motion.div
@@ -63,6 +88,6 @@ export default function ContactButton({ dict }: ContactButtonProps) {
         {open ? <X size={20} weight="bold" /> : <ChatCircleDots size={20} weight="bold" />}
         {dict.contact.cta}
       </motion.button>
-    </div>
+    </motion.div>
   );
 }

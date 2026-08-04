@@ -18,10 +18,10 @@ export const ru = {
   hero: {
     available: 'Открыт к новым проектам',
     busy: 'Занят проектом',
-    greeting: 'Привет, я Данил,',
-    role: 'UX/UI дизайнер продуктов',
-    subtext: 'Проектирую B2B-сервисы на стыке фронт-офиса для клиентов и бэк-офиса для администрирования уже 6 лет.',
-    ctaProjects: 'Смотреть проекты',
+    greetingLead: 'Привет! Меня зовут',
+    greetingTail: 'Данил, я продуктовый UX/UI-дизайнер.',
+    subtext: 'Уже 6+ лет проектирую цифровые продукты для бизнеса и клиентов.',
+    domains: ['ERP', 'CRM', 'MES', 'Service Desk', 'E-commerce', 'Marketplace'],
     ctaContact: 'Связаться'
   }
 };

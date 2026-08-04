@@ -10,29 +10,36 @@ const dict = getDictionary(locale);
 ---
 
 <Layout title="Данил Ефремов — UX/UI дизайнер">
-  <main class="container-site flex min-h-[100dvh] items-center py-24">
+  <main id="hero" class="container-site flex min-h-[100dvh] items-center py-24">
     <div class="grid-16 w-full items-center">
-      <div class="col-span-full md:col-span-[9]">
+      <div class="col-span-full md:col-span-[10]">
         <StatusClock available availableLabel={dict.hero.available} busyLabel={dict.hero.busy} client:load />
-        <h1 class="mt-8 font-display text-4xl font-semibold leading-[1.15] tracking-tight md:text-5xl">
-          {dict.hero.greeting} {dict.hero.role}
+
+        <h1 class="mt-8 font-display text-4xl font-semibold leading-[1.25] tracking-tight md:text-5xl">
+          {dict.hero.greetingLead}{' '}
+          <span class="glass-panel inline-flex h-11 w-11 -translate-y-1 items-center justify-center overflow-hidden rounded-full align-middle md:h-14 md:w-14">
+            <Image src={danilPhoto} alt="Данил Ефремов" width={112} height={112} class="h-full w-full object-cover" />
+          </span>{' '}
+          {dict.hero.greetingTail}
         </h1>
-        <p class="mt-6 max-w-[52ch] text-lg text-fg-muted">
-          {dict.hero.subtext}
-        </p>
-        <div class="mt-10 flex flex-wrap gap-4">
-          <a href="#projects" data-cursor="link" class="rounded-full bg-accent px-6 py-3 font-medium text-bg">
-            {dict.hero.ctaProjects}
-          </a>
-          <a href="#contact" data-cursor="link" class="glass-panel rounded-full px-6 py-3 font-medium">
+
+        <div class="mt-8">
+          <a href="#contact" data-cursor="link" class="inline-block rounded-full bg-accent px-6 py-3 font-medium text-bg">
             {dict.hero.ctaContact}
           </a>
         </div>
       </div>
-      <div class="col-span-full mt-12 md:col-span-[7] md:mt-0">
-        <div class="glass-panel mx-auto max-w-sm overflow-hidden rounded-[24px] md:max-w-none">
-          <Image src={danilPhoto} alt="Данил Ефремов" width={640} height={640} class="aspect-square w-full object-cover" />
-        </div>
+
+      <div class="col-span-full mt-10 md:col-span-[6] md:mt-0">
+        <p class="max-w-[38ch] text-fg-muted">
+          {dict.hero.subtext}
+        </p>
+
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {dict.hero.domains.map((domain) => (
+            <li class="rounded-full border border-border px-3 py-1 text-xs font-medium text-fg-muted">{domain}</li>
+          ))}
+        </ul>
       </div>
     </div>
   </main>
