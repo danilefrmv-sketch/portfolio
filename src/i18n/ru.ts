@@ -3,7 +3,8 @@ export const ru = {
     projects: 'Проекты',
     about: 'Обо мне',
     contact: 'Контакты',
-    path: 'Путь'
+    path: 'Путь',
+    cv: 'Скачать CV'
   },
   contact: {
     cta: 'Связаться',

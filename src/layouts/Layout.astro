@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Cursor from '../components/Cursor';
-import SideNav from '../components/SideNav';
+import Header from '../components/Header';
 import ContactButton from '../components/ContactButton';
 import { getDictionary, type Locale } from '../i18n';
 
@@ -24,9 +24,9 @@ const dict = getDictionary(locale);
   </head>
   <body>
     <Cursor client:load />
-    <SideNav dict={dict} locale={locale} client:load />
+    <Header dict={dict} locale={locale} client:load />
     <ContactButton dict={dict} client:load />
-    <div class="md:pl-[260px]">
+    <div class="pt-16 md:pt-20">
       <slot />
     </div>
   </body>
