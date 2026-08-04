@@ -73,12 +73,15 @@ const presentPlatforms = [...new Set(allProjects.flatMap((p) => p.data.platforms
       {allProjects.map((project) => (
         <a
           href={`/projects/${project.id.replace(/\/index$/, '')}/`}
-          data-cursor="link"
+          data-cursor="view"
           data-project-card
           data-platforms={project.data.platforms.join(',')}
           class="group block"
         >
-          <div class="glass-panel aspect-[4/3] overflow-hidden rounded-[20px]">
+          <div
+            class="glass-panel relative aspect-[4/3] overflow-hidden rounded-[20px]"
+            transition:name={`cover-${project.id}`}
+          >
             <Image
               src={project.data.cover}
               alt={project.data.title}
@@ -86,6 +89,7 @@ const presentPlatforms = [...new Set(allProjects.flatMap((p) => p.data.platforms
               height={480}
               class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
+            <div class="absolute inset-0 bg-bg/0 transition-colors duration-300 group-hover:bg-bg/30" />
           </div>
           <p class="mt-4 text-xs font-medium uppercase tracking-[0.12em] text-fg-muted/70">
             {directionLabels[project.data.direction]}

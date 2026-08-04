@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import Cursor from '../components/Cursor';
 import Header from '../components/Header';
 import ContactButton from '../components/ContactButton';
@@ -21,6 +22,7 @@ const dict = getDictionary(locale);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <ClientRouter />
   </head>
   <body>
     <Cursor client:load />
