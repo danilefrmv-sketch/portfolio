@@ -1,17 +1,26 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Данил Ефремов — UX/UI дизайнер">
+  <main class="container-site min-h-screen py-24">
+    <div class="grid-16">
+      <div class="col-span-full md:col-span-[10]">
+        <p class="font-sans text-sm uppercase tracking-[0.18em] text-fg-muted">Product UX/UI дизайнер</p>
+        <h1 class="mt-6 font-display text-5xl font-semibold leading-[1.05] md:text-7xl">
+          Проектирую интерфейсы, которым доверяют бизнес и пользователи
+        </h1>
+        <p class="mt-6 max-w-[65ch] text-lg text-fg-muted">
+          Черновая проверка дизайн-системы: шрифты, сетка на 16 колонок, тёмная тема, акцент и кастомный курсор.
+        </p>
+        <div class="mt-10 flex gap-4">
+          <a href="#" class="rounded-full bg-accent px-6 py-3 font-medium text-bg">Смотреть проекты</a>
+          <a href="#" class="glass-panel rounded-full px-6 py-3 font-medium">Связаться</a>
+        </div>
+      </div>
+      <div class="col-span-full mt-12 md:col-span-[6] md:mt-0">
+        <div class="glass-panel aspect-[4/5] rounded-[20px]"></div>
+      </div>
+    </div>
+  </main>
+</Layout>

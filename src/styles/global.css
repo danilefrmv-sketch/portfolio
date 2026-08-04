@@ -1,1 +1,106 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Clash Display";
+  src: url("../assets/fonts/clash-display/ClashDisplay-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("../assets/fonts/general-sans/GeneralSans-Variable.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("../assets/fonts/general-sans/GeneralSans-VariableItalic.woff2") format("woff2");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: italic;
+}
+
+@theme {
+  --font-display: "Clash Display", "General Sans", sans-serif;
+  --font-sans: "General Sans", sans-serif;
+
+  --color-bg: #0a0a0b;
+  --color-bg-elevated: #131316;
+  --color-bg-glass: rgb(255 255 255 / 0.04);
+  --color-fg: #f5f4f2;
+  --color-fg-muted: #a3a3a8;
+  --color-accent: #ff5a36;
+  --color-accent-soft: #ff5a3626;
+  --color-border: rgb(255 255 255 / 0.08);
+
+  --breakpoint-3xl: 1920px;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  @media (pointer: fine) {
+    html.has-custom-cursor,
+    html.has-custom-cursor a,
+    html.has-custom-cursor button {
+      cursor: none;
+    }
+  }
+}
+
+@layer utilities {
+  .container-site {
+    max-width: 1560px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-site {
+      padding-inline: 3rem;
+    }
+  }
+
+  .grid-16 {
+    display: grid;
+    grid-template-columns: repeat(16, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    .grid-16 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .glass-panel {
+    background: var(--color-bg-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--color-border);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .glass-panel {
+      background: var(--color-bg-elevated);
+      backdrop-filter: none;
+    }
+  }
+}
