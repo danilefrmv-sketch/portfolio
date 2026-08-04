@@ -15,9 +15,9 @@ const dict = getDictionary(locale);
       <div class="col-span-full md:col-span-[10]">
         <StatusClock available availableLabel={dict.hero.available} busyLabel={dict.hero.busy} client:load />
 
-        <h1 class="mt-8 font-display text-4xl font-semibold leading-[1.25] tracking-tight md:text-5xl">
+        <h1 class="mt-8 font-display text-2xl font-semibold leading-[1.3] tracking-tight md:text-3xl lg:text-4xl">
           {dict.hero.greetingLead}{' '}
-          <span class="glass-panel inline-flex h-11 w-11 -translate-y-1 items-center justify-center overflow-hidden rounded-full align-middle md:h-14 md:w-14">
+          <span class="border-bg ring-fg/10 shadow-[0_10px_24px_-6px_rgba(0,0,0,0.7)] inline-flex h-11 w-11 -translate-y-0.5 items-center justify-center overflow-hidden rounded-full border-[3px] ring-1 align-middle md:h-14 md:w-14">
             <Image src={danilPhoto} alt="Данил Ефремов" width={112} height={112} class="h-full w-full object-cover" />
           </span>{' '}
           {dict.hero.greetingTail}
@@ -34,12 +34,6 @@ const dict = getDictionary(locale);
         <p class="max-w-[38ch] text-fg-muted">
           {dict.hero.subtext}
         </p>
-
-        <ul class="mt-5 flex flex-wrap gap-2">
-          {dict.hero.domains.map((domain) => (
-            <li class="rounded-full border border-border px-3 py-1 text-xs font-medium text-fg-muted">{domain}</li>
-          ))}
-        </ul>
       </div>
     </div>
   </main>
