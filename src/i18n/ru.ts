@@ -19,8 +19,10 @@ export const ru = {
     available: 'Открыт к новым проектам',
     busy: 'Занят проектом',
     greetingLead: 'Привет! Меня зовут',
-    greetingTail: 'Данил, я продуктовый UX/UI-дизайнер.',
+    greetingName: 'Данил,',
+    greetingRole: 'я продуктовый UX/UI-дизайнер',
     subtext: '6+ лет проектирую цифровые продукты для ритейла, е-кома, производства, складской логистики, спортивной инфраструктуры и автоматизации бизнеса.',
+    domains: ['ERP', 'CRM', 'MES', 'Service Desk', 'E-commerce', 'Marketplace'],
     ctaContact: 'Связаться'
   }
 };
