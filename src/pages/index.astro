@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import StatusClock from '../components/StatusClock';
+import Reveal from '../components/Reveal';
 import { Image } from 'astro:assets';
 import danilPhoto from '../assets/images/danil.jpg';
 import { getDictionary, type Locale } from '../i18n';
+import { skillGroups } from '../data/skills';
 
 const locale = (Astro.currentLocale ?? 'ru') as Locale;
 const dict = getDictionary(locale);
@@ -46,4 +48,27 @@ const dict = getDictionary(locale);
       </div>
     </div>
   </main>
+
+  <section id="about" class="container-site py-20 md:py-28">
+    <Reveal client:visible>
+      <p class="max-w-[34ch] font-display text-2xl font-medium leading-snug md:max-w-[42ch] md:text-3xl">
+        {dict.about.body}
+      </p>
+    </Reveal>
+
+    <div class="mt-14 flex flex-col gap-6">
+      {skillGroups.map((group, i) => (
+        <Reveal client:visible delay={0.05 * i}>
+          <div class="flex flex-col gap-3 border-t border-border pt-6 md:flex-row md:items-baseline md:gap-8">
+            <span class="w-full shrink-0 text-sm text-fg-muted md:w-40">{group.title}</span>
+            <ul class="flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <li class="glass-panel rounded-full px-3 py-1.5 text-xs font-medium text-fg-muted">{item}</li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  </section>
 </Layout>
