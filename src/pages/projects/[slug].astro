@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Carousel from '../../components/Carousel';
 import { getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
-import { platformLabels } from '../../data/directions';
+import { platformLabels, sphereLabels } from '../../data/directions';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
@@ -40,7 +40,7 @@ const carouselImages = await Promise.all(
 
     <header class="mt-6">
       <h1 class="font-display text-4xl font-semibold tracking-tight md:text-5xl">{project.data.title}</h1>
-      <p class="mt-3 text-fg-muted">{project.data.company} · {project.data.period}</p>
+      <p class="mt-3 text-fg-muted">{sphereLabels[project.data.direction]} · {project.data.period}</p>
       <ul class="mt-4 flex flex-wrap gap-2">
         {project.data.platforms.map((platform) => (
           <li class="glass-panel rounded-full px-3 py-1 text-xs font-medium text-fg-muted">
