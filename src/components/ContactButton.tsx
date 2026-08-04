@@ -20,21 +20,40 @@ export default function ContactButton({ dict }: ContactButtonProps) {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const hero = document.getElementById('hero');
-    if (!hero) {
-      setVisible(true);
-      return;
-    }
+    // This island persists across Astro view transitions, but each navigated
+    // page has its own (or no) #hero element. Re-attach the observer to the
+    // CURRENT page's hero after every swap instead of watching a stale,
+    // detached node from whichever page first mounted this component.
+    let observer: IntersectionObserver | null = null;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVisible(!entry.isIntersecting);
-        if (entry.isIntersecting) setOpen(false);
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(hero);
-    return () => observer.disconnect();
+    const attach = () => {
+      observer?.disconnect();
+      setOpen(false);
+
+      const hero = document.getElementById('hero');
+      if (!hero) {
+        setVisible(true);
+        return;
+      }
+
+      setVisible(false);
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setVisible(!entry.isIntersecting);
+          if (entry.isIntersecting) setOpen(false);
+        },
+        { threshold: 0.2 }
+      );
+      observer.observe(hero);
+    };
+
+    attach();
+    document.addEventListener('astro:after-swap', attach);
+
+    return () => {
+      observer?.disconnect();
+      document.removeEventListener('astro:after-swap', attach);
+    };
   }, []);
 
   return (

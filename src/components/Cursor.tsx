@@ -40,12 +40,20 @@ export default function Cursor() {
     addClass();
     document.addEventListener('astro:after-swap', addClass);
 
+    // Whatever was hovered on the previous page no longer exists after a
+    // navigation, so the cursor must not stay stuck in "view"/"link" mode.
+    const resetMode = () => setMode('default');
+    document.addEventListener('astro:before-swap', resetMode);
+
     // The cursor island persists across Astro view transitions (transition:persist).
     // Guard so re-running this effect (e.g. during a page swap) never attaches
     // a second set of pointer listeners or tears down the first one mid-navigation.
     const win = window as typeof window & { __cursorInit?: boolean };
     if (win.__cursorInit) {
-      return () => document.removeEventListener('astro:after-swap', addClass);
+      return () => {
+        document.removeEventListener('astro:after-swap', addClass);
+        document.removeEventListener('astro:before-swap', resetMode);
+      };
     }
     win.__cursorInit = true;
 
