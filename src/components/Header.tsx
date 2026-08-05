@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { List, X, TelegramLogo, DribbbleLogo, DownloadSimple } from '@phosphor-icons/react';
 import type { Dictionary } from '../i18n/ru';
+import { withBase } from '../lib/paths';
 
 interface HeaderProps {
   dict: Dictionary;
@@ -9,17 +10,17 @@ interface HeaderProps {
 }
 
 const sections: Array<{ key: 'projects' | 'about'; href: string }> = [
-  { key: 'projects', href: '/#projects' },
-  { key: 'about', href: '/about/' }
+  { key: 'projects', href: withBase('#projects') },
+  { key: 'about', href: withBase('about/') }
 ];
 
-const CV_HREF = '/cv/danil-efremov-cv.pdf';
+const CV_HREF = withBase('cv/danil-efremov-cv.pdf');
 
 export default function Header({ dict, locale }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const reduceMotion = useReducedMotion();
   const otherLocale = locale === 'ru' ? 'en' : 'ru';
-  const otherHref = otherLocale === 'ru' ? '/' : '/en/';
+  const otherHref = otherLocale === 'ru' ? withBase('') : withBase('en/');
 
   return (
     <>
@@ -30,7 +31,7 @@ export default function Header({ dict, locale }: HeaderProps) {
         className="fixed inset-x-0 top-0 z-50 h-16 border-b border-border bg-bg-elevated/80 backdrop-blur-xl md:h-20"
       >
         <div className="container-site flex h-full items-center justify-between gap-6">
-          <a href="/" data-cursor="link" className="shrink-0 leading-tight">
+          <a href={withBase('')} data-cursor="link" className="shrink-0 leading-tight">
             <span className="block text-sm font-semibold md:text-base">Данил Ефремов</span>
             <span className="block text-xs text-fg-muted">Product UX/UI дизайнер</span>
           </a>

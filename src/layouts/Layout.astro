@@ -5,6 +5,7 @@ import Cursor from '../components/Cursor';
 import Header from '../components/Header';
 import ContactButton from '../components/ContactButton';
 import { getDictionary, type Locale } from '../i18n';
+import { withBase } from '../lib/paths';
 
 interface Props {
   title: string;
@@ -18,7 +19,7 @@ const dict = getDictionary(locale);
 <html lang={locale}>
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>

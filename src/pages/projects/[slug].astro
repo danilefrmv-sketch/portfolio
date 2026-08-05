@@ -4,6 +4,7 @@ import Carousel from '../../components/Carousel';
 import { Image, getImage } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import { platformLabels, sphereLabels } from '../../data/directions';
+import { withBase } from '../../lib/paths';
 
 export async function getStaticPaths() {
   const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
@@ -37,7 +38,7 @@ const carouselImages = await Promise.all(
 <Layout title={`${project.data.title} — Данил Ефремов`}>
   <article class="container-site pb-24 pt-10 md:pt-14">
     <a
-      href="/#projects"
+      href={withBase('#projects')}
       data-cursor="link"
       class="glass-panel inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:text-accent"
       aria-label="Назад к проектам"
@@ -70,7 +71,7 @@ const carouselImages = await Promise.all(
     {showNeighborNav && (
       <nav aria-label="Другие кейсы" class="mt-20 grid grid-cols-1 gap-3 border-t border-border pt-10 md:grid-cols-2 md:gap-6">
         <a
-          href={`/projects/${slugOf(prevProject)}/`}
+          href={withBase(`projects/${slugOf(prevProject)}/`)}
           data-cursor="view"
           class="group flex items-center gap-4 rounded-[20px] p-3 transition-colors hover:bg-white/5"
         >
@@ -89,7 +90,7 @@ const carouselImages = await Promise.all(
         </a>
 
         <a
-          href={`/projects/${slugOf(nextProject)}/`}
+          href={withBase(`projects/${slugOf(nextProject)}/`)}
           data-cursor="view"
           class="group flex items-center gap-4 rounded-[20px] p-3 text-right transition-colors hover:bg-white/5 md:flex-row-reverse"
         >
