@@ -29,7 +29,7 @@ const slugOf = (p: typeof project) => p.id.replace(/\/index$/, '');
 const allImages = [project.data.cover, ...project.data.gallery];
 const carouselImages = await Promise.all(
   allImages.map(async (image) => {
-    const optimized = await getImage({ src: image });
+    const optimized = await getImage({ src: image, width: 1600 });
     return { src: optimized.src, width: optimized.attributes.width, height: optimized.attributes.height };
   })
 );
