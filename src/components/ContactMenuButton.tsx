@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ChatCircleDots, X, TelegramLogo, EnvelopeSimple, DribbbleLogo, Phone } from '@phosphor-icons/react';
 import type { Dictionary } from '../i18n/ru';
@@ -16,6 +16,7 @@ interface ContactMenuButtonProps {
   align?: 'left' | 'right';
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  closeOnScroll?: boolean;
 }
 
 export default function ContactMenuButton({
@@ -23,7 +24,8 @@ export default function ContactMenuButton({
   dropdownPosition = 'above',
   align = 'right',
   open: openProp,
-  onOpenChange
+  onOpenChange,
+  closeOnScroll = false
 }: ContactMenuButtonProps) {
   const [openState, setOpenState] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -33,6 +35,17 @@ export default function ContactMenuButton({
     setOpenState(value);
     onOpenChange?.(value);
   };
+
+  useEffect(() => {
+    // The button itself isn't position:fixed, so once the page scrolls it
+    // past the fixed header, its dropdown would keep rendering right where
+    // the (now hidden) button used to be — looking detached from anything.
+    if (!closeOnScroll || !open) return;
+    const handleScroll = () => setOpen(false);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [closeOnScroll, open]);
 
   return (
     <div className="relative inline-block">
