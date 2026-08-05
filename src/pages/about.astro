@@ -16,8 +16,11 @@ const dict = getDictionary(locale);
 
     <section class="mt-14">
       <Reveal client:visible>
-        <div class="flex max-w-[46ch] flex-col gap-4 font-display text-2xl font-medium leading-snug md:max-w-[60ch] md:text-3xl">
-          {dict.about.body.map((paragraph) => (
+        <p class="max-w-[34ch] font-display text-2xl font-medium leading-snug md:max-w-[42ch] md:text-3xl">
+          {dict.about.body[0]}
+        </p>
+        <div class="mt-5 flex max-w-[60ch] flex-col gap-3 text-base text-fg-muted md:text-lg">
+          {dict.about.body.slice(1).map((paragraph) => (
             <p>{paragraph}</p>
           ))}
         </div>
