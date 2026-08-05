@@ -1,6 +1,6 @@
 ---
 title: "Sport Admin"
-order: 10
+order: 11
 direction: "entertainment-sport"
 platforms: ["web"]
 company: "Fora"

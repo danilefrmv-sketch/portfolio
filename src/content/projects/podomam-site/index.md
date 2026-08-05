@@ -1,6 +1,6 @@
 ---
 title: "Сайт Podomam"
-order: 14
+order: 8
 direction: "consumer"
 platforms: ["web"]
 company: "Личный проект"

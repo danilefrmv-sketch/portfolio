@@ -1,6 +1,6 @@
 ---
 title: "Rental Hub"
-order: 9
+order: 10
 direction: "entertainment-sport"
 platforms: ["tablet", "web"]
 company: "Fora"
