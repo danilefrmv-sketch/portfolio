@@ -8,10 +8,9 @@ interface HeaderProps {
   locale: 'ru' | 'en';
 }
 
-const sections: Array<{ key: 'projects' | 'about' | 'contact'; href: string }> = [
+const sections: Array<{ key: 'projects' | 'about'; href: string }> = [
   { key: 'projects', href: '/#projects' },
-  { key: 'about', href: '/about/' },
-  { key: 'contact', href: '/#contact' }
+  { key: 'about', href: '/about/' }
 ];
 
 const CV_HREF = '/cv/danil-efremov-cv.pdf';

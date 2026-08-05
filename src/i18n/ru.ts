@@ -2,7 +2,6 @@ export const ru = {
   nav: {
     projects: 'Проекты',
     about: 'Обо мне',
-    contact: 'Контакты',
     cv: 'Скачать CV'
   },
   contact: {
