@@ -92,15 +92,6 @@ const pileImages = await Promise.all(
     </section>
 
     <section class="mt-24">
-      <h2 class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Фото</h2>
-      <p class="mt-2 text-sm text-fg-muted">Можно перетаскивать.</p>
-
-      <div class="mt-10">
-        <PhotoPile images={pileImages} client:only="react" />
-      </div>
-    </section>
-
-    <section class="mt-24">
       <h2 class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Мой путь</h2>
 
       <Reveal client:visible>
@@ -110,6 +101,15 @@ const pileImages = await Promise.all(
           ))}
         </div>
       </Reveal>
+    </section>
+
+    <section class="mt-24">
+      <h2 class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Фото</h2>
+      <p class="mt-2 text-sm text-fg-muted">Можно перетаскивать.</p>
+
+      <div class="mt-10">
+        <PhotoPile images={pileImages} client:only="react" />
+      </div>
     </section>
   </article>
 </Layout>

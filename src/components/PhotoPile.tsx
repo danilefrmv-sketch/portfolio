@@ -66,7 +66,7 @@ export default function PhotoPile({ images }: PhotoPileProps) {
             zIndex: order.indexOf(i),
             rotate: layout[i].rotate
           }}
-          className="glass-panel h-auto w-28 cursor-grab select-none rounded-xl object-cover shadow-[0_12px_30px_-8px_rgba(0,0,0,0.6)] sm:w-36 md:w-44"
+          className="h-auto w-28 cursor-grab select-none [filter:drop-shadow(0_10px_20px_rgba(0,0,0,0.45))] sm:w-36 md:w-44"
         />
       ))}
     </div>
