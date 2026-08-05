@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Reveal from '../components/Reveal';
+import Spoiler from '../components/Spoiler';
 import { getDictionary, type Locale } from '../i18n';
 import { skillGroups } from '../data/skills';
 import { experience } from '../data/experience';
+import { pathParagraphs } from '../data/path';
 
 const locale = (Astro.currentLocale ?? 'ru') as Locale;
 const dict = getDictionary(locale);
@@ -66,6 +68,20 @@ const dict = getDictionary(locale);
             </div>
           </Reveal>
         ))}
+      </div>
+    </section>
+
+    <section class="mt-24">
+      <h2 class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Мой путь</h2>
+
+      <div class="mt-10">
+        <Spoiler label="Читать историю" labelOpen="Свернуть" client:visible>
+          <div class="flex max-w-[70ch] flex-col gap-5 text-fg-muted">
+            {pathParagraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </Spoiler>
       </div>
     </section>
   </article>
