@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { ChatCircleDots, X, TelegramLogo, EnvelopeSimple, DribbbleLogo, Phone } from '@phosphor-icons/react';
 import type { Dictionary } from '../i18n/ru';
@@ -29,6 +29,7 @@ export default function ContactMenuButton({
 }: ContactMenuButtonProps) {
   const [openState, setOpenState] = useState(false);
   const reduceMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const open = openProp ?? openState;
   const setOpen = (value: boolean) => {
@@ -47,8 +48,20 @@ export default function ContactMenuButton({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [closeOnScroll, open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const handlePointerDown = (event: PointerEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
   return (
-    <div className="relative inline-block">
+    <div ref={containerRef} className="relative inline-block">
       <AnimatePresence>
         {open && (
           <motion.div
