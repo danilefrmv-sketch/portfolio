@@ -6,9 +6,11 @@ platforms: ["web", "mobile"]
 company: "Энтерсайт"
 period: "2020 — настоящее время"
 summary: "Облачная товароучётная система для розницы: от MVP до масштабирования дизайн-системы."
-cover: "./cover.png"
+cover: "./cover.webp"
 gallery:
-  - "./gallery-1.png"
+  - "./gallery-1.webp"
+  - "./gallery-2.webp"
+  - "./gallery-3.webp"
 ---
 
 ## О продукте
