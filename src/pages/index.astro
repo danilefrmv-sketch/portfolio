@@ -29,14 +29,21 @@ const presentPlatforms = [...new Set(allProjects.flatMap((p) => p.data.platforms
         <StatusClock available availableLabel={dict.hero.available} busyLabel={dict.hero.busy} client:load />
 
         <h1 class="mt-8 font-display text-3xl font-semibold leading-[1.3] tracking-tight md:text-4xl">
-          <span class="flex flex-wrap items-center gap-3">
-            {dict.hero.greetingLead}
-            <span class="border-bg ring-fg/10 shadow-[0_10px_24px_-6px_rgba(0,0,0,0.7)] inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border-[3px] ring-1 md:h-20 md:w-20">
-              <Image src={danilPhoto} alt="Данил Ефремов" width={160} height={160} class="h-full w-full object-cover" />
-            </span>
-            {dict.hero.greetingName}
+          <span class="block md:hidden">
+            <span class="block">{dict.hero.greetingHi}</span>
+            <span class="block">{dict.hero.greetingIntro} {dict.hero.greetingName}</span>
+            <span class="block">{dict.hero.greetingRole}</span>
           </span>
-          <span class="block">{dict.hero.greetingRole}</span>
+          <span class="hidden md:block">
+            <span class="flex flex-wrap items-center gap-3">
+              {dict.hero.greetingHi} {dict.hero.greetingIntro}
+              <span class="border-bg ring-fg/10 shadow-[0_10px_24px_-6px_rgba(0,0,0,0.7)] inline-flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-[3px] ring-1">
+                <Image src={danilPhoto} alt="Данил Ефремов" width={160} height={160} class="h-full w-full object-cover" />
+              </span>
+              {dict.hero.greetingName}
+            </span>
+            <span class="block">{dict.hero.greetingRole}</span>
+          </span>
         </h1>
 
         <div class="mt-8">

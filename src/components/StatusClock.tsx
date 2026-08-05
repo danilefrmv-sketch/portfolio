@@ -36,7 +36,10 @@ export default function StatusClock({ available = true, availableLabel, busyLabe
       </span>
       <span className="font-medium text-fg-muted">{available ? availableLabel : busyLabel}</span>
       <span className="h-3 w-px bg-border" />
-      <span className="font-medium text-fg-muted">Новосибирск, {time} (+7 UTC)</span>
+      <span className="font-medium text-fg-muted">
+        <span className="hidden md:inline">Новосибирск, {time} (+7 UTC)</span>
+        <span className="md:hidden">+7 UTC</span>
+      </span>
     </div>
   );
 }
