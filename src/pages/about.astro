@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Reveal from '../components/Reveal';
+import { getDictionary, type Locale } from '../i18n';
+import { skillGroups } from '../data/skills';
+import { experience } from '../data/experience';
+
+const locale = (Astro.currentLocale ?? 'ru') as Locale;
+const dict = getDictionary(locale);
+---
+
+<Layout title="Обо мне — Данил Ефремов">
+  <article class="container-site pb-24 pt-10 md:pt-14">
+    <h1 class="font-display text-4xl font-semibold tracking-tight md:text-5xl">{dict.nav.about}</h1>
+
+    <section class="mt-14">
+      <Reveal client:visible>
+        <p class="max-w-[34ch] font-display text-2xl font-medium leading-snug md:max-w-[42ch] md:text-3xl">
+          {dict.about.body}
+        </p>
+      </Reveal>
+
+      <div class="mt-14 flex flex-col gap-6">
+        {skillGroups.map((group, i) => (
+          <Reveal client:visible delay={0.05 * i}>
+            <div class="flex flex-col gap-3 border-t border-border pt-6 md:flex-row md:items-baseline md:gap-8">
+              <span class="w-full shrink-0 text-sm text-fg-muted md:w-40">{group.title}</span>
+              <ul class="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <li class="glass-panel rounded-full px-3 py-1.5 text-xs font-medium text-fg-muted">{item}</li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+
+    <section class="mt-24">
+      <h2 class="font-display text-2xl font-semibold tracking-tight md:text-3xl">Опыт работы</h2>
+
+      <div class="mt-10 flex flex-col gap-10">
+        {experience.map((item, i) => (
+          <Reveal client:visible delay={0.05 * i}>
+            <div class="border-t border-border pt-8">
+              <div class="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
+                <h3 class="font-display text-xl font-semibold">
+                  {item.company}
+                  {item.location && <span class="ml-2 text-sm font-normal text-fg-muted">{item.location}</span>}
+                </h3>
+                <p class="text-sm text-fg-muted">{item.period}</p>
+              </div>
+              <p class="mt-1 text-sm text-fg-muted">{item.role}</p>
+              <p class="mt-4 max-w-[70ch] text-fg-muted">{item.description}</p>
+
+              {(item.directions.length > 0 || item.skills.length > 0) && (
+                <ul class="mt-4 flex flex-wrap gap-1.5">
+                  {item.directions.map((direction) => (
+                    <li class="rounded-full border border-border px-2.5 py-0.5 text-sm font-medium text-fg-muted">{direction}</li>
+                  ))}
+                  {item.skills.map((skill) => (
+                    <li class="glass-panel rounded-full px-2.5 py-0.5 text-sm font-medium text-fg-muted">{skill}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  </article>
+</Layout>
