@@ -1,6 +1,6 @@
 ---
 title: "Киоск самообслуживания для аквапарка"
-order: 3
+order: 11
 direction: "entertainment-sport"
 platforms: ["kiosk"]
 company: "Bars"

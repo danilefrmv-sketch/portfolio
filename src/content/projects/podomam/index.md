@@ -1,6 +1,6 @@
 ---
 title: "Podomam"
-order: 10
+order: 3
 direction: "consumer"
 platforms: ["mobile", "web"]
 company: "Личный проект"

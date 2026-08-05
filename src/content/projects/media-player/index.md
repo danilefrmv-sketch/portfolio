@@ -1,6 +1,6 @@
 ---
 title: "Медиаплеер"
-order: 7
+order: 6
 direction: "consumer"
 platforms: ["web"]
 company: "Личный проект"

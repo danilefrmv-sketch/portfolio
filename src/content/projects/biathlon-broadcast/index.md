@@ -1,6 +1,6 @@
 ---
 title: "Графика биатлонной трансляции"
-order: 5
+order: 12
 direction: "entertainment-sport"
 platforms: ["web"]
 company: "Fora"

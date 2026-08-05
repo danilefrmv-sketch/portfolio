@@ -1,6 +1,6 @@
 ---
 title: "Easy Board"
-order: 6
+order: 5
 direction: "b2b-saas"
 platforms: ["web", "mobile"]
 company: "ДатаКрат"

@@ -1,6 +1,6 @@
 ---
 title: "Rarity"
-order: 11
+order: 7
 direction: "consumer"
 platforms: ["mobile"]
 company: "Личный проект"

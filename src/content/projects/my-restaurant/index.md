@@ -1,6 +1,6 @@
 ---
 title: "My Restaurant"
-order: 9
+order: 13
 direction: "consumer"
 platforms: ["mobile"]
 company: "Личный проект"
