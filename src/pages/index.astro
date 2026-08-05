@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import StatusClock from '../components/StatusClock';
 import ProjectFilter from '../components/ProjectFilter';
+import ContactMenuButton from '../components/ContactMenuButton';
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import danilPhoto from '../assets/images/danil.jpg';
@@ -39,9 +40,7 @@ const presentPlatforms = [...new Set(allProjects.flatMap((p) => p.data.platforms
         </h1>
 
         <div class="mt-8">
-          <a href="#contact" data-cursor="link" class="inline-block rounded-full bg-accent px-6 py-3 font-medium text-bg">
-            {dict.hero.ctaContact}
-          </a>
+          <ContactMenuButton dict={dict} dropdownPosition="below" align="left" client:load />
         </div>
       </div>
 
