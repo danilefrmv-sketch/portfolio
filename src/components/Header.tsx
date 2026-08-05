@@ -74,9 +74,11 @@ export default function Header({ dict, locale }: HeaderProps) {
               href={otherHref}
               data-cursor="link"
               aria-label={dict.languageSwitch.label}
-              className="rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-wide text-fg-muted transition-colors hover:text-fg"
+              className="flex items-center gap-1 rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-wide"
             >
-              {locale.toUpperCase()} / {otherLocale.toUpperCase()}
+              <span className="text-accent">{locale.toUpperCase()}</span>
+              <span className="text-fg-muted/50">/</span>
+              <span className="text-fg-muted transition-colors hover:text-fg">{otherLocale.toUpperCase()}</span>
             </a>
           </div>
 
@@ -117,7 +119,7 @@ export default function Header({ dict, locale }: HeaderProps) {
               {dict.nav.cv}
             </a>
             <a href={otherHref} data-cursor="link" className="mt-4 text-sm uppercase tracking-widest text-fg-muted">
-              {dict.languageSwitch.label}: {otherLocale}
+              {dict.languageSwitch.label}: <span className="text-accent">{locale}</span> / {otherLocale}
             </a>
           </motion.div>
         )}
