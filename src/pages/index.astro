@@ -135,19 +135,25 @@ const presentPlatforms = [...new Set(allProjects.flatMap((p) => p.data.platforms
   <script>
     const SCROLL_KEY = 'projectsScrollY';
 
-    document.addEventListener('click', (event) => {
-      const card = (event.target as HTMLElement).closest('[data-project-card]');
-      if (card) sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
-    });
+    if (!(window as typeof window & { __scrollRestoreInit?: boolean }).__scrollRestoreInit) {
+      (window as typeof window & { __scrollRestoreInit?: boolean }).__scrollRestoreInit = true;
 
-    const restoreScroll = () => {
-      const saved = sessionStorage.getItem(SCROLL_KEY);
-      if (saved === null) return;
-      sessionStorage.removeItem(SCROLL_KEY);
-      requestAnimationFrame(() => window.scrollTo({ top: Number(saved), behavior: 'instant' }));
-    };
+      document.addEventListener('click', (event) => {
+        const card = (event.target as HTMLElement).closest('[data-project-card]');
+        if (card) sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+      });
 
-    restoreScroll();
-    document.addEventListener('astro:page-load', restoreScroll);
+      const restoreScroll = () => {
+        // Only relevant on the catalog/home page (the only page with #projects).
+        if (!document.getElementById('projects')) return;
+        const saved = sessionStorage.getItem(SCROLL_KEY);
+        if (saved === null) return;
+        sessionStorage.removeItem(SCROLL_KEY);
+        requestAnimationFrame(() => window.scrollTo({ top: Number(saved), behavior: 'instant' }));
+      };
+
+      restoreScroll();
+      document.addEventListener('astro:page-load', restoreScroll);
+    }
   </script>
 </Layout>
