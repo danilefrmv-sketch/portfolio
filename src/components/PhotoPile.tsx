@@ -66,7 +66,7 @@ export default function PhotoPile({ images }: PhotoPileProps) {
             zIndex: order.indexOf(i),
             rotate: layout[i].rotate
           }}
-          className="h-auto w-28 cursor-grab select-none [filter:drop-shadow(0_10px_20px_rgba(0,0,0,0.45))] sm:w-36 md:w-44"
+          className="h-auto w-28 cursor-grab select-none rounded-[47px] [filter:drop-shadow(0_10px_20px_rgba(0,0,0,0.45))] sm:w-36 md:w-44"
         />
       ))}
     </div>
