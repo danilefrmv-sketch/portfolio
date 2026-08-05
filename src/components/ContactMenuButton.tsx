@@ -43,7 +43,7 @@ export default function ContactMenuButton({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: dropdownPosition === 'above' ? 12 : -12, scale: 0.96 }}
             transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className={`glass-panel absolute z-50 flex w-64 flex-col gap-1 rounded-[20px] p-2 ${
+            className={`absolute z-50 flex w-64 flex-col gap-1 rounded-[20px] border border-border bg-bg-elevated/95 p-2 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.7)] backdrop-blur-xl ${
               dropdownPosition === 'above' ? 'bottom-full mb-3' : 'top-full mt-3'
             } ${align === 'right' ? 'right-0' : 'left-0'}`}
           >
